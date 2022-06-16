@@ -22,9 +22,7 @@ async def on_ready(): # 봇이 실행되면 한 번 실행됨 Unity Start
 
 @client.event
 async def on_message(message):
-    if str(message.channel.type) == "private" and message.author.id != 985849129580257290:
-            author = await client.get_user(961454870328655872).create_dm()
-            await author.send(str(message.author.name) + "(" + message.author.id + ") : " + message.content)
+    
     message_context = message.content
     if(message_context.find("테스트") >= 0):
         await message.channel.send ("{} | {}, Hello".format(message.author, message.author.mention))
@@ -65,11 +63,6 @@ async def 팀(ctx):
 async def 집합(ctx):
     await ctx.channel.send ("모여라 !! @everyone")
     return ctx
-
-
-    
-
-
 
 
 client.run(TOKEN)
