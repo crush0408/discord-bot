@@ -28,7 +28,6 @@ async def on_message(message):
 @client.command()
 async def 도움말(ctx):
     embed = discord.Embed(title="도움말",describe=f"명령어들", color=0x0080FF)
-    embed.add_field(name="테스트하기",value=f"형식 : {client.command_prefix}테스트",inline=True)
     embed.add_field(name="집합시키기",value=f"형식 : {client.command_prefix}집합 보내고싶은 메세지",inline=False)
     embed.add_field(name="랜텀 뽑기",value=f"형식 : {client.command_prefix}랜덤 a b",inline=False)
     embed.add_field(name="롤 정보 보기",value=f"형식 : {client.command_prefix}롤 소환사이름",inline=False)
@@ -46,14 +45,7 @@ async def 랜덤(ctx, member1, member2):
     await ctx.send(embed = embed)
     return
 
-@client.command()
-async def 팀(ctx):
-    embed = discord.Embed(title="팀 추첨 결과",describe=f"결과", color=0x0080FF)
-    
-    embed.add_field(name="콜러팀",value=f"[TANKER]김범주\n [BRAIN]이상백\n [SUB TANKER]유지호\n [SUB TANKER]박광현",inline=False)
-    embed.add_field(name="마을팀",value=f"[TANKER]김건범\n [BRAIN]이민형\n [NORMAL]김홍열\n [NORMAL]이승혁",inline=False)
-    await ctx.send(embed = embed)
-    return
+
     
 @client.command()
 async def 집합(ctx, *args):
@@ -74,7 +66,6 @@ async def 롤(ctx, *args):
     
     await ctx.send(embed = embed)
     return
-
 
 
 
