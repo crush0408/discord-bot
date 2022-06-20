@@ -39,5 +39,3 @@ def get_RankInfo(summonerID):
 
     else:
         print(req.status_code)
-
-print(get_RankInfo("TmJuG-D9jie2Bwla9jea52xBR2iOehTE-dTWnZaKm0qSHQ"))
