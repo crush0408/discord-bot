@@ -12,7 +12,7 @@ import riot
 import os;
 
 
-token_path = os.path.dirname(os.path.abspath(__file__)) + "/variable.env"
+token_path = os.path.dirname(os.path.abspath(__file__)) + "/variable.env" 
 with open(token_path, 'r', encoding='utf-8') as t:
     TOKEN = t.read().split()[0]
 print(TOKEN)
