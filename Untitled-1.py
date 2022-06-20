@@ -15,7 +15,7 @@ import os;
 
 token_path = os.path.dirname(os.path.abspath(__file__)) + "/variable.env" 
 with open(token_path, 'r', encoding='utf-8') as t:
-    TOKEN = t.read().split()[0]
+    TOKEN = t.read().split()[0] 
 
 #riot Devlop Register Product -> Personal API Key 
 
@@ -68,7 +68,6 @@ async def 롤(ctx, *args):
     embed = discord.Embed(title="소환사 정보",describe=f"소환사 정보 검색 결과", color=0x0080FF)
     summer_ID = riot.get_SummonerId(summonerName)
     list = riot.get_RankInfo(summer_ID)
-    print(list)
     if list == None:
         embed.add_field(name="오류",value="소환사가 존재하지 않거나 랭크에 등록되어 있지 않습니다.")
     else:
