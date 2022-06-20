@@ -8,6 +8,7 @@ import discord, asyncio
 from discord.utils import get
 from discord.ext import commands
 from discord import DMChannel
+import riot
 import os;
 
 os.environ['DISCORD_BOT_TOKEN'] = "OTg1ODQ5MTI5NTgwMjU3Mjkw.G9RJwW.vh4hBjWdDHvey6_wp7zMevDyYd8ywLTsbDTIUE"
@@ -22,12 +23,6 @@ async def on_ready(): # 봇이 실행되면 한 번 실행됨 Unity Start
 
 @client.event
 async def on_message(message):
-    
-    message_context = message.content
-    if(message_context.find("테스트") >= 0):
-        await message.channel.send ("{} | {}, Hello".format(message.author, message.author.mention))
-        await message.author.send ("{} | {}, User, Hello".format(message.author, message.author.mention))
-    
     await client.process_commands(message) # 메세지 중 명령어가 있을 경우 처리해주는 코드
 
 @client.command()
@@ -35,7 +30,8 @@ async def 도움말(ctx):
     embed = discord.Embed(title="도움말",describe=f"명령어들", color=0x0080FF)
     embed.add_field(name="테스트하기",value=f"형식 : {client.command_prefix}테스트",inline=True)
     embed.add_field(name="집합시키기",value=f"형식 : {client.command_prefix}집합 보내고싶은 메세지",inline=False)
-    embed.add_field(name="랜텀 팀",value=f"형식 : {client.command_prefix}랜덤 a b",inline=False)
+    embed.add_field(name="랜텀 뽑기",value=f"형식 : {client.command_prefix}랜덤 a b",inline=False)
+    embed.add_field(name="롤 정보 보기",value=f"형식 : {client.command_prefix}롤 소환사이름",inline=False)
     await ctx.send(embed = embed)
     return
 
@@ -60,9 +56,24 @@ async def 팀(ctx):
     return
     
 @client.command()
-async def 집합(ctx, message):
+async def 집합(ctx, *args):
+    message = ' '.join(args)
     await ctx.channel.send ("모여라 !! @everyone,\n" + message)
     return ctx
+
+@client.command()
+async def 롤(ctx, *args):
+    summonerName = ' '.join(args)
+    embed = discord.Embed(title="소환사 정보",describe=f"소환사 정보 검색 결과", color=0x0080FF)
+    summer_ID = riot.get_SummonerId(summonerName)
+    list = riot.get_RankInfo(summer_ID)
+    
+    embed.add_field(name="닉네임",value=f"소환사 닉네임 : {list['summonerName']}",inline=False)
+    embed.add_field(name="티어",value=f"소환사 티어 : {list['tier']} {list['rank']}" + f" {list['leaguePoints']}LP",inline=False)
+    embed.add_field(name="승률",value=f"승률 : {(list['wins'] / (list['wins'] + list['losses'])) * 100:.2f}퍼센트 (승:{list['wins']}/패:{list['losses']}) ",inline=False)
+    
+    await ctx.send(embed = embed)
+    return
 
 
 
