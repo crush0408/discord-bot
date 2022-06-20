@@ -11,14 +11,23 @@ from discord import DMChannel
 import riot
 import os;
 
-os.environ['DISCORD_BOT_TOKEN'] = "OTg1ODQ5MTI5NTgwMjU3Mjkw.G9RJwW.vh4hBjWdDHvey6_wp7zMevDyYd8ywLTsbDTIUE"
-TOKEN = os.environ.get('DISCORD_BOT_TOKEN')
+
+token_path = os.path.dirname(os.path.abspath(__file__)) + "/variable.env"
+with open(token_path, 'r', encoding='utf-8') as t:
+    TOKEN = t.read().split()[0]
+print(TOKEN)
+
+#riot Devlop Register Product -> Personal API Key 
+
+
+
 
 client = commands.Bot(command_prefix='~')
 
 @client.event
 async def on_ready(): # 봇이 실행되면 한 번 실행됨 Unity Start
     await client.change_presence(status=discord.Status.online, activity=discord.Game("~도움말"))
+    
 
 
 @client.event
