@@ -1,6 +1,11 @@
 import requests
+import os
 
-API_KEY = "RGAPI-da5b6421-a330-45b1-b6d2-ee3f53c77d8e"
+
+apiKey_path = os.path.dirname(os.path.abspath(__file__)) + "/variable.env" 
+with open(apiKey_path, 'r', encoding='utf-8') as t:
+    API_KEY = t.read().split()[1]
+print(API_KEY)
 HEADER = {
     "Accept-Charset" : "application/x-www-form-urlencoded; charset=UTF-8",
     "X-Riot-Token" : API_KEY,

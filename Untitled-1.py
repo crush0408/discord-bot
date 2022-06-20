@@ -1,5 +1,6 @@
 # 파이썬의 기본 내장 함수가 아닌 다른 함수 혹은 다른 기능이 필요할 때 사용함
 from asyncio import events
+from asyncio.windows_events import NULL
 from email import message
 from pydoc import describe
 from random import randint, random
@@ -15,7 +16,6 @@ import os;
 token_path = os.path.dirname(os.path.abspath(__file__)) + "/variable.env" 
 with open(token_path, 'r', encoding='utf-8') as t:
     TOKEN = t.read().split()[0]
-print(TOKEN)
 
 #riot Devlop Register Product -> Personal API Key 
 
@@ -68,10 +68,13 @@ async def 롤(ctx, *args):
     embed = discord.Embed(title="소환사 정보",describe=f"소환사 정보 검색 결과", color=0x0080FF)
     summer_ID = riot.get_SummonerId(summonerName)
     list = riot.get_RankInfo(summer_ID)
-    
-    embed.add_field(name="닉네임",value=f"소환사 닉네임 : {list['summonerName']}",inline=False)
-    embed.add_field(name="티어",value=f"소환사 티어 : {list['tier']} {list['rank']}" + f" {list['leaguePoints']}LP",inline=False)
-    embed.add_field(name="승률",value=f"승률 : {(list['wins'] / (list['wins'] + list['losses'])) * 100:.2f}퍼센트 (승:{list['wins']}/패:{list['losses']}) ",inline=False)
+    print(list)
+    if list == None:
+        embed.add_field(name="오류",value="소환사가 존재하지 않거나 랭크에 등록되어 있지 않습니다.")
+    else:
+        embed.add_field(name="닉네임",value=f"소환사 닉네임 : {list['summonerName']}",inline=False)
+        embed.add_field(name="티어",value=f"소환사 티어 : {list['tier']} {list['rank']}" + f" {list['leaguePoints']}LP",inline=False)
+        embed.add_field(name="승률",value=f"승률 : {(list['wins'] / (list['wins'] + list['losses'])) * 100:.2f}퍼센트 (승:{list['wins']}/패:{list['losses']}) ",inline=False)
     
     await ctx.send(embed = embed)
     return
